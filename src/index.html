@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>node care</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      text-align: left;
+      margin: 20px;
+    }
+
+    #inputData {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+      margin-bottom: 10px;
+    }
+
+    #confirmButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #confirmButton:disabled {
+      background-color: #d3d3d3;
+      cursor: not-allowed;
+    }
+
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .node-status {
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            max-width: 400px;
+            text-align: left;
+        }
+
+        .node-status div {
+            margin: 10px 0;
+        }
+
+        .status-label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .status-value {
+            color: #3498db;
+        }
+  </style>
+  <body>
+
+
+    <div class="section-title">노드 데이터 수집기</div>
+    <br />
+    <div class="node-status">
+        <div id="osVersion">
+            <span class="status-label">OS Version:</span>
+            <span class="status-value"></span>
+        </div>
+
+        <div>
+            <span class="status-label">Node State:</span>
+            <span class="status-value" id="nodeSync"></span>
+        </div>
+
+        <div>
+            <span class="status-label">In Coming:</span>
+            <span class="status-value" id="nodeIncome"></span>
+        </div>
+
+        <div>
+            <span class="status-label">Out Going:</span>
+            <span class="status-value" id="nodeOutcome"></span>
+        </div>
+    </div>
+
+        <!-- <div id="nodeSync"></div> -->
+    <!-- <div id="nodeLasttime"></div> -->
+
+    <br />
+
+    <div>pi username 입력 후 확인을 눌러야 데이터 전송이 시작됩니다.</div>
+    <br />
+
+    <input type="text" id="inputData" placeholder="Enter data" >    
+    <button id="confirmButton" onclick="sendData()">확인</button>
+
+    <script type ="text/javascript"> 
+
+
+      const elecCon = window.electron;
+
+      var elementNode = document.getElementById("nodeSync");
+      if(elecCon.arch().state === "Synced!"){
+        elementNode.innerText =  "Synced"
+      }
+
+      var elementIncome = document.getElementById("nodeIncome");
+      elementIncome.innerText = elecCon.arch().incomingNodes;
+
+      var elementOutcome = document.getElementById("nodeOutcome");
+      elementOutcome.innerText = elecCon.arch().outgoingNodes;
+
+      // var elementNode = document.getElementById("nodeLasttime");
+      // const timestamp = elecCon.arch().latestBlockTime;
+      // const date = new Date(timestamp * 1000);
+      // const datevalues = [
+      //   date.getFullYear(),
+      //   date.getMonth()+1,
+      //   date.getDate(),
+      //   date.getHours(),
+      //   date.getMinutes(),
+      //   date.getSeconds(),
+      // ];
+
+      // elementNode.innerText = date
+
+      function sendData() {
+        elecCon.sendData()
+        inputData.disabled = true;
+        confirmButton.disabled = true;
+      }
+
+    </script>
+</body>
+</html>

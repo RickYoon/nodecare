@@ -1,0 +1,37 @@
+{
+  "name": "nodecare",
+  "productName": "NodeCare",
+  "appId": "com.nc.electron",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "build:osx": "electron-builder --mac",
+    "build:win64": "electron-builder --win portable --x64"
+  },
+  "keywords": [],
+  "author": "iloyoon",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "1.6.1",
+    "electron-log": "5.0.0",
+    "electron-squirrel-startup": "1.0.0",
+    "electron-updater": "6.1.4",
+    "node-cron": "3.0.3"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.4.2",
+    "@electron-forge/maker-deb": "^6.4.2",
+    "@electron-forge/maker-rpm": "^6.4.2",
+    "@electron-forge/maker-squirrel": "^6.4.2",
+    "@electron-forge/maker-zip": "^6.4.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.4.2",
+    "electron": "27.0.3",
+    "electron-builder": "24.6.4"
+  }
+}
